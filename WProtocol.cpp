@@ -2,7 +2,7 @@
 #include <stdlib.h>
 //#include <stdio.h>
 //#include <string.h>
-#include "Protocol.h"
+#include "WProtocol.h"
 #include "Definitions.h"
 
 Protocol::Protocol()

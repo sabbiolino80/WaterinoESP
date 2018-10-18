@@ -13,7 +13,8 @@
 #include "BluetoothSerial.h"
 #include "ManualControls.h"
 #include "Definitions.h"
-#include "Protocol.h"
+#include "WProtocol.h"
+#include "grbl.h"
 
 
 
@@ -21,11 +22,10 @@
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
-
-const char* ssid      = "BARALDI_EXT";
-const char* password  = "ambarabaciccicocco";
 int         step_delay   = 5; // stepper delay
 #ifdef WIFI
+const char* ssid      = "BARALDI_EXT";
+const char* password  = "ambarabaciccicocco";
 WiFiServer server(80);
 #endif
 
