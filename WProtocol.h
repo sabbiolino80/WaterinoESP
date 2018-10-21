@@ -1,5 +1,5 @@
-#ifndef SerialLog_h
-#define SerialLog_h
+#ifndef WProtocol_h
+#define WProtocol_h
 
 #define STX 2
 #define ETX 3

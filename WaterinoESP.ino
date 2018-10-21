@@ -7,31 +7,37 @@
   //This example creates a bridge between Serial and Classical Bluetooth (SPP)
   //and also demonstrate that SerialBT have the same functionalities of a normal Serial
 */
-#ifdef WIFI
+#include "WConfig.h"
+#ifdef WIFI_EN
 #include <WiFi.h>
 #endif
+#ifdef BLUETOOTH_EN
 #include "BluetoothSerial.h"
+#endif
 #include "ManualControls.h"
 #include "Definitions.h"
 #include "WProtocol.h"
 #include "grbl.h"
 
 
-
+#ifdef BLUETOOTH_EN
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
+#endif
 
 int         step_delay   = 5; // stepper delay
-#ifdef WIFI
+#ifdef WIFI_EN
 const char* ssid      = "BARALDI_EXT";
 const char* password  = "ambarabaciccicocco";
 WiFiServer server(80);
 #endif
 
+#ifdef BLUETOOTH_EN
 BluetoothSerial SerialBT;
 Protocol parserBT;
 bool newData = false;
+#endif
 
 ManualControls manuals;
 
@@ -41,7 +47,9 @@ bool jogUp, jogDown, jogLeft, jogRight;
 void setup()
 {
   Serial.begin(115200);
+  #ifdef BLUETOOTH_EN
   SerialBT.begin("Waterino"); //Bluetooth device name
+  #endif
 
   // PIN MODES
   pinMode(stepper1_sleep, OUTPUT);      // set Stepper direction pin mode
@@ -56,7 +64,7 @@ void setup()
   //digitalWrite(led, HIGH);
 
   Serial.println("The device started, now you can pair it with bluetooth!");
-#ifdef WIFI
+#ifdef WIFI_EN
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
@@ -90,7 +98,7 @@ void loop() {
 
   /* BLUETOOTH CONTROLS */
 
-
+#ifdef BLUETOOTH_EN
   //  SerialBT.write(Serial.read());
 
   while (SerialBT.available()) {
@@ -105,13 +113,13 @@ void loop() {
     parserBT.GetNextCommand();
   }
 
+#endif
 
 
 
 
 
-
-#ifdef WIFI
+#ifdef WIFI_EN
   WiFiClient client = server.available();   // listen for incoming clients
 
   if (client) {
