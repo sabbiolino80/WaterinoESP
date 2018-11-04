@@ -17,7 +17,7 @@
 #include "ManualControls.h"
 #include "Definitions.h"
 #include "WProtocol.h"
-#include "grbl.h"
+//#include "grbl.h"
 
 
 #ifdef BLUETOOTH_EN
@@ -93,8 +93,10 @@ void loop() {
   /* MANUAL CONTROLS */
   manuals.loop();
 
-
-
+digitalWrite(led, HIGH);
+delay(1000);
+digitalWrite(led, LOW);
+delay(1000);
 
   /* BLUETOOTH CONTROLS */
 
